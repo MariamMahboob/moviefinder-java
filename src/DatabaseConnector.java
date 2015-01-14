@@ -9,9 +9,9 @@ import java.sql.Connection;
 
 public class DatabaseConnector {
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://web01:3306/guproject";
-	private static final String USERNAME = "guproject";
-	private static final String PASSWORD = "project";
+	private static final String DB_URL = DatabaseCredentials.DB_URL;
+	private static final String USERNAME = DatabaseCredentials.USERNAME;
+	private static final String PASSWORD = DatabaseCredentials.PASSWORD;
 	
 	private Connection conn = null;
 	private Statement stm = null;
