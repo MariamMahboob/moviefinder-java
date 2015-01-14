@@ -63,12 +63,6 @@ public class DatabaseConnector {
 				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%'";
 			}
 			
-//			if(genre == "All" && rating == "Rating") {
-//				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%'";
-//			} else if(genre != "All" && rating != "Rating") {
-//				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%' AND genre='" + genre + "' AND rating>"+rating;
-//			} 
-			
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
 				Movie m = new Movie();
@@ -232,14 +226,12 @@ public class DatabaseConnector {
 			success = true;
 		} catch (Exception e) {
 			// Maybe log errors to file?
-			//System.out.println(e);
 		} finally {
 			try {
 				if(stm != null) stm.close();
 				if(conn != null) conn.close();
 			} catch (SQLException sqlex) {
 				// Maybe log errors to file?
-				//System.out.println(sqlex);
 			}
 		}
 		return success;
