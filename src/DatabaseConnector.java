@@ -9,7 +9,7 @@ import java.sql.Connection;
 
 public class DatabaseConnector {
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://ig4.se:3306/guproject";
+	private static final String DB_URL = "jdbc:mysql://web01:3306/guproject";
 	private static final String USERNAME = "guproject";
 	private static final String PASSWORD = "project";
 	
@@ -72,7 +72,8 @@ public class DatabaseConnector {
 				m.runtime		= rs.getInt("runtime");
 				listMovie.add(m);
 			}
-		} catch(Exception e) { e.printStackTrace(); }
+		} 
+		catch(Exception e) { e.printStackTrace(); }
 		finally {
 			try {
 				if(stm != null) stm.close();
@@ -232,5 +233,34 @@ public class DatabaseConnector {
 			}
 		}
 		return success;
+	}
+
+	public final List<Comment> getComments(int mid) {
+		List<Comment> listComment = new ArrayList<Comment>();
+		try {
+			Class.forName(JDBC_DRIVER).newInstance();
+			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+			stm = conn.createStatement();
+			
+			String query = "SELECT idmovie,cid, username, comment FROM comments LEFT JOIN movie USING (idmovie) WHERE idmovie='"+mid+"'";
+			
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				Comment c  = new Comment();
+				c.mid = rs.getInt("idmovie");
+				c.cid = rs.getInt("cid");
+				c.name = rs.getString("username");
+				c.text = rs.getString("comment");
+				listComment.add(c);
+			}
+		}
+		catch (Exception e) { e.printStackTrace(); }
+		finally {
+			try {
+				if(stm != null) stm.close();
+				if(conn != null) conn.close();
+			} catch(SQLException sqlex) { sqlex.printStackTrace(); }
+		}
+		return listComment;
 	}
 }

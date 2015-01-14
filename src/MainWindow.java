@@ -134,7 +134,7 @@ public class MainWindow {
 		bm2.addElement("Rating");
 		for(int i=10; i>=1; i--) { bm2.addElement(i); }
 		GridBagConstraints gbc_btnSearch = new GridBagConstraints();
-		gbc_btnSearch.insets = new Insets(5, 0, 5, 0);
+		gbc_btnSearch.insets = new Insets(5, 0, 5, 5);
 		gbc_btnSearch.gridx = 2;
 		gbc_btnSearch.gridy = 0;
 		frmMoviefinder.getContentPane().add(btnSearch, gbc_btnSearch);
