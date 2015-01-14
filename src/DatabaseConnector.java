@@ -44,7 +44,7 @@ public class DatabaseConnector {
 		return result;
 	}
 
-	public final List<Movie> getMovie(String title, String genre) {
+	public final List<Movie> getMovie(String title, String genre, String rating) {
 		List<Movie> listMovie = new ArrayList<Movie>();
 
 		try {
@@ -53,11 +53,21 @@ public class DatabaseConnector {
 			stm = conn.createStatement();
 			String query;
 			
-			if(genre == "All") {
-				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%'";
-			} else {
+			if(genre != "All" && rating != "Rating") {
+				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%' AND genre='" + genre + "' AND rating>"+rating;
+			} else if(genre == "All" && rating != "Rating") {
+				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%' AND rating>"+rating;
+			} else if(genre != "All" && rating == "Rating") {
 				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%' AND genre='" + genre + "'";
+			} else {
+				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%'";
 			}
+			
+//			if(genre == "All" && rating == "Rating") {
+//				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%'";
+//			} else if(genre != "All" && rating != "Rating") {
+//				query = "SELECT * FROM movie WHERE title LIKE '%" + title + "%' AND genre='" + genre + "' AND rating>"+rating;
+//			} 
 			
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {

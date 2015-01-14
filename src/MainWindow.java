@@ -37,6 +37,7 @@ public class MainWindow {
 	private JMenuItem mntmLogout = new JMenuItem("Log out");
 	private JMenuItem mntmAddNew = new JMenuItem("Add New");
 	private JButton btnGetInfo;
+	private JComboBox ratingBox;
 
 	/**
 	 * Launch the application.
@@ -77,9 +78,9 @@ public class MainWindow {
 		frmMoviefinder.setBounds(100, 100, 400, 600);
 		frmMoviefinder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		frmMoviefinder.getContentPane().setLayout(gridBagLayout);
 		
@@ -119,7 +120,7 @@ public class MainWindow {
 					}
 				}
 
-				List<Movie> results = dc.getMovie(textField.getText(), genreBox.getSelectedItem().toString());
+				List<Movie> results = dc.getMovie(textField.getText(), genreBox.getSelectedItem().toString(), ratingBox.getSelectedItem().toString());
 				for(Movie s : results) {
 					ltm.addRow(new Object[] {
 							s.id,
@@ -133,9 +134,18 @@ public class MainWindow {
 		DefaultComboBoxModel bm2 = new DefaultComboBoxModel();
 		bm2.addElement("Rating");
 		for(int i=10; i>=1; i--) { bm2.addElement(i); }
+		
+		ratingBox = new JComboBox();
+		ratingBox.setModel(bm2);
+		GridBagConstraints gbc_ratingBox = new GridBagConstraints();
+		gbc_ratingBox.insets = new Insets(5, 0, 5, 5);
+		gbc_ratingBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_ratingBox.gridx = 2;
+		gbc_ratingBox.gridy = 0;
+		frmMoviefinder.getContentPane().add(ratingBox, gbc_ratingBox);
 		GridBagConstraints gbc_btnSearch = new GridBagConstraints();
-		gbc_btnSearch.insets = new Insets(5, 0, 5, 5);
-		gbc_btnSearch.gridx = 2;
+		gbc_btnSearch.insets = new Insets(5, 0, 5, 0);
+		gbc_btnSearch.gridx = 3;
 		gbc_btnSearch.gridy = 0;
 		frmMoviefinder.getContentPane().add(btnSearch, gbc_btnSearch);
 		
@@ -157,8 +167,8 @@ public class MainWindow {
 		JScrollPane scrollPane = new JScrollPane(resultList);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridwidth = 3;
-		gbc_scrollPane.insets = new Insets(1, 5, 5, 5);
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.insets = new Insets(1, 5, 5, 0);
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 1;
 		frmMoviefinder.getContentPane().add(scrollPane, gbc_scrollPane);
@@ -182,7 +192,7 @@ public class MainWindow {
 		GridBagConstraints gbc_btnGetInfo = new GridBagConstraints();
 		gbc_btnGetInfo.insets = new Insets(0, 1, 1, 1);
 		gbc_btnGetInfo.fill = GridBagConstraints.BOTH;
-		gbc_btnGetInfo.gridwidth = 3;
+		gbc_btnGetInfo.gridwidth = 4;
 		gbc_btnGetInfo.gridx = 0;
 		gbc_btnGetInfo.gridy = 2;
 		frmMoviefinder.getContentPane().add(btnGetInfo, gbc_btnGetInfo);
@@ -248,5 +258,8 @@ public class MainWindow {
 
 	public JButton getBtnGetInfo() {
 		return btnGetInfo;
+	}
+	public JComboBox getRatingBox() {
+		return ratingBox;
 	}
 }
