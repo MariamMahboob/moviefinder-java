@@ -23,7 +23,6 @@ public class AdminLogin extends JFrame {
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	
-	//TODO Place in database
 	private final String user = "admin";
 	private final String password = "admin";
 
@@ -32,6 +31,7 @@ public class AdminLogin extends JFrame {
 	}
 	/**
 	 * Create the application.
+	 * Auto generated design from Windowbuilder
 	 */
 	public AdminLogin() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -78,6 +78,8 @@ public class AdminLogin extends JFrame {
 		gbc_passwordField.gridy = 1;
 		getContentPane().add(passwordField, gbc_passwordField);
 		
+		// Checking if correct username and password are entered.
+		// Sets adminRights to true if correct and opens mainWindow with added functionality
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
