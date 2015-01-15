@@ -1,3 +1,6 @@
+/*
+ * Class used for fetching and inserting movie information.
+ */
 public final class Movie {
 	public int id;
 	public String title;
