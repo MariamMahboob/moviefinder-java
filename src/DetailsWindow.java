@@ -20,10 +20,15 @@ import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class DetailsWindow extends JFrame{
-
+	
+	// Open DarabaseConnector
 	private DatabaseConnector dc = new DatabaseConnector();
-
+	
+	// Require movieid as argument to identify wanted movie.
 	DetailsWindow(int movieid) throws IOException {
+		/* Get movie as a Movie class from the supplied movieid.
+		 * Later set values fetched with 'movie.title', movie.rating' etc.
+		 */
 		Movie movie = dc.getMovieDetailsList(movieid);
 		
 		setTitle(movie.title);
@@ -164,6 +169,7 @@ public class DetailsWindow extends JFrame{
 				em.setVisible(true);
 			}
 		});
+		// If admin rights, show specific items on menu.
 		if(AdminLogin.ReturnStatus()) { setJMenuBar(menuBar); menuBar.add(mnAdmin); mnAdmin.add(mntmEdit); }
 
 	}
