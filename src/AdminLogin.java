@@ -79,7 +79,7 @@ public class AdminLogin extends JFrame {
 		getContentPane().add(passwordField, gbc_passwordField);
 		
 		// Checking if correct username and password are entered.
-		// Sets adminRights to true if correct and opens mainWindow with added functionality.
+		// Sets adminRights to true if correct and opens MainWindow with added functionality.
 		// Prompts user to try again if username or password are wrong.
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {

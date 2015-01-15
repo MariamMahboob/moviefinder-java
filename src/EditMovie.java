@@ -157,8 +157,7 @@ public class EditMovie extends JFrame {
 		try {
 			btnDate.setDate(dateformat.parse(movie.release_date));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		GridBagConstraints gbc_btnDate = new GridBagConstraints();
 		gbc_btnDate.fill = GridBagConstraints.HORIZONTAL;
@@ -192,6 +191,7 @@ public class EditMovie extends JFrame {
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// Retrieve current values in text areas and put them in a Movie;
 				Movie editedmovie = new Movie();
 				editedmovie.id = movie.id;
 
@@ -204,6 +204,7 @@ public class EditMovie extends JFrame {
 				editedmovie.plot 			= plotArea.getText();
 				editedmovie.imagepath		= urlField.getText();
 				
+				// Try to update movie in database
 				if(dc.updateMovieDetails(editedmovie)) {
 					javax.swing.JOptionPane.showMessageDialog(null, "Success! You the man!");
 					dispose();
@@ -256,6 +257,7 @@ public class EditMovie extends JFrame {
 				Movie deletemovie = new Movie();
 				deletemovie.id = movie.id;
 				
+				// These are not needed.
 				deletemovie.title 			= titleField.getText();
 				deletemovie.director 		= directorField.getText();
 				deletemovie.rating 			= ratingField.getText();

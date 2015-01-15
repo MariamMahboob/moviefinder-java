@@ -222,6 +222,7 @@ public class MainWindow {
 		
 		mntmLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Admin Login window
 				AdminLogin al = new AdminLogin();
 				al.setVisible(true);
 				al.setLocationRelativeTo(frmMoviefinder);

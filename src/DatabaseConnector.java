@@ -8,6 +8,10 @@ import java.sql.Connection;
 
 
 public class DatabaseConnector {
+	/*
+	 * Define driver, database url, user and password.
+	 * DB_URL, USERNAME, PASSWORD is fetched from another class for security measures.
+	 */
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_URL = DatabaseCredentials.DB_URL;
 	private static final String USERNAME = DatabaseCredentials.USERNAME;
@@ -16,6 +20,9 @@ public class DatabaseConnector {
 	private Connection conn = null;
 	private Statement stm = null;
 	
+	/*
+	 * Get genres as an ArrayList.
+	 */
 	public final List<String> GetGenres() {
 		List<String> result = new ArrayList<String>();
 		
@@ -43,7 +50,10 @@ public class DatabaseConnector {
 		}
 		return result;
 	}
-
+	
+	/*
+	 * Get movie search results as an ArrayList of <Movie> 
+	 */
 	public final List<Movie> getMovie(String title, String genre, String rating) {
 		List<Movie> listMovie = new ArrayList<Movie>();
 
@@ -87,6 +97,10 @@ public class DatabaseConnector {
  		return listMovie;
 	}
 
+	/*
+	 * Get movie details as a normal String array.
+	 * This method is currently not in use.
+	 */
 	public final String[] getMovieDetails(int id) {
 		String[] results = new String[8];
 		
@@ -119,6 +133,9 @@ public class DatabaseConnector {
 		return results;
 	}
 	
+	/*
+	 * Get movie details as a Movie.
+	 */
 	public final Movie getMovieDetailsList(int id) {
 		Movie m = new Movie();
 		
@@ -154,6 +171,11 @@ public class DatabaseConnector {
 		return m;
 	}
 
+	/*
+	 * Update movie details, takes Movie as argument.
+	 * Returns true is edit is successfully carried out.
+	 * False if not.
+	 */
 	public final boolean updateMovieDetails(Movie m) {
 		boolean success = false;
 		try {
@@ -176,14 +198,16 @@ public class DatabaseConnector {
 		return success;
 	}
 	
-	
+	/*
+	 * Deletes a movie. Takes Movie as argument. Delete depends on idmovie.
+	 */
 	public final boolean DeleteMovie(Movie m) {
 		boolean success = false;
 		try {
 			Class.forName(JDBC_DRIVER).newInstance();
 			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 			stm = conn.createStatement();
-			String query = "DELETE FROM `guproject`.`movie` WHERE title = '"+ m.title+"'";
+			String query = "DELETE FROM `guproject`.`movie` WHERE idmovie = '"+ m.id+"'";
 			stm.executeUpdate(query);
 			success = true;
 		} catch(Exception e) {
@@ -199,6 +223,9 @@ public class DatabaseConnector {
 		return success;
 	}
 
+	/*
+	 * Insert movie. Movie as argument.
+	 */
 	public final boolean insertMovie(Movie m) {
 		boolean success = false;
 		try {
@@ -237,6 +264,10 @@ public class DatabaseConnector {
 		return success;
 	}
 
+	/*
+	 * Retrieves comments for a movie by id.
+	 * Returns an ArrayList of Comment.
+	 */
 	public final List<Comment> getComments(int mid) {
 		List<Comment> listComment = new ArrayList<Comment>();
 		try {
@@ -266,8 +297,11 @@ public class DatabaseConnector {
 		return listComment;
 	}
 	
+	/*
+	 * Inserts a new comment.
+	 */
 	public final void putComment(int mid, String username, String comment) {
-		Comment c = new Comment();
+		// Comment c = new Comment();
 		try {
 			Class.forName(JDBC_DRIVER).newInstance();
 			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);

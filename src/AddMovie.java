@@ -179,6 +179,7 @@ public class AddMovie extends JFrame {
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// Create a Movie of the inputed values.
 				Movie m = new Movie();
 				m.title = titleField.getText();
 				m.rating = ratingField.getText();
@@ -189,6 +190,7 @@ public class AddMovie extends JFrame {
 				m.release_date = dateformat.format(btnDate.getDate());
 				m.imagepath = urlField.getText();
 				
+				// Call method insterMovie with 'm' as argument.
 				if(dc.insertMovie(m)) {
 					javax.swing.JOptionPane.showMessageDialog(null, "Success! You ma dawg!");
 					dispose();
