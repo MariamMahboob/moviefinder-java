@@ -1,8 +1,11 @@
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 import java.awt.GridBagLayout;
+import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -11,17 +14,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
+
 import java.util.List;
 
 
@@ -70,6 +68,7 @@ public class MainWindow {
 	}
 	/**
 	 * Initialize the contents of the frame.
+	 * Lots of auto generated windowbuilder code.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
@@ -97,6 +96,7 @@ public class MainWindow {
 		bm.addElement("All");
 		
 		for(int i=0; i<dc.GetGenres().size(); i++) {
+			// Get genres in database using GetGenres() method.
 			bm.addElement(dc.GetGenres().get(i));
 		}
 		
@@ -113,6 +113,7 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				btnGetInfo.setVisible(true);
+				// Clears table of previous search.
 				if(ltm.getRowCount() != 0) {
 					int rowsToRemove = ltm.getRowCount();
 					for(int i = rowsToRemove-1; i>=0; i--) {
@@ -121,6 +122,7 @@ public class MainWindow {
 				}
 
 				List<Movie> results = dc.getMovie(textField.getText(), genreBox.getSelectedItem().toString(), ratingBox.getSelectedItem().toString());
+				// For each result of getMovie create a new row with the vaules fetched.
 				for(Movie s : results) {
 					ltm.addRow(new Object[] {
 							s.id,
@@ -131,12 +133,14 @@ public class MainWindow {
 				}
 			}
 		});
+		// Create values for Rating combobox.
 		DefaultComboBoxModel bm2 = new DefaultComboBoxModel();
 		bm2.addElement("Rating");
 		for(int i=10; i>=1; i--) { bm2.addElement(i); }
 		
 		ratingBox = new JComboBox();
 		ratingBox.setModel(bm2);
+		
 		GridBagConstraints gbc_ratingBox = new GridBagConstraints();
 		gbc_ratingBox.insets = new Insets(5, 0, 5, 5);
 		gbc_ratingBox.fill = GridBagConstraints.HORIZONTAL;
@@ -149,11 +153,12 @@ public class MainWindow {
 		gbc_btnSearch.gridy = 0;
 		frmMoviefinder.getContentPane().add(btnSearch, gbc_btnSearch);
 		
+		// Create values used in the result JTable.
 		ltm = new LockedTableModel(
 					new Object[][] { },
 					new String[] { "ID", "Title", "Genre", "Rating" }
 				);
-		
+		// Adjustments for JTable behaviour.
 		resultList = new JTable();
 		resultList.setModel(ltm);
 		resultList.removeColumn(resultList.getColumnModel().getColumn(0));
@@ -178,14 +183,14 @@ public class MainWindow {
 		btnGetInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DetailsWindow dw;
+				// Call DetailWindows with the selected row index as argument.
 				try {
 					int modelRow = resultList.convertRowIndexToModel(resultList.getSelectedRow());
 					dw = new DetailsWindow((int) resultList.getModel().getValueAt(modelRow, 0));
 					dw.setVisible(true);
 					dw.setLocationRelativeTo(frmMoviefinder);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					// e.printStackTrace();
 				}
 			}
 		});
@@ -206,6 +211,7 @@ public class MainWindow {
 		JMenuItem mntmQuit = new JMenuItem("Quit");
 		mntmQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// DIE
 				System.exit(1);
 			}
 		});
@@ -254,12 +260,5 @@ public class MainWindow {
 		
 		JMenuItem mntmAbout = new JMenuItem("About");
 		mnAbout.add(mntmAbout);
-	}
-
-	public JButton getBtnGetInfo() {
-		return btnGetInfo;
-	}
-	public JComboBox getRatingBox() {
-		return ratingBox;
 	}
 }
