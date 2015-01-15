@@ -265,4 +265,26 @@ public class DatabaseConnector {
 		}
 		return listComment;
 	}
+	
+	public final void putComment(int mid, String username, String comment) {
+		Comment c = new Comment();
+		try {
+			Class.forName(JDBC_DRIVER).newInstance();
+			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+			stm = conn.createStatement();
+			
+			String query = "INSERT INTO comments (cid, idmovie, username, comment) VALUES (NULL, '"+mid+"', '"+username+"', '"+comment+"')";
+			
+			stm.executeQuery(query);
+		}
+		catch(Exception e) {
+			
+		}
+		finally {
+			try {
+				if(stm != null) stm.close();
+				if(conn != null) conn.close();
+			} catch (SQLException sqlex) { }
+		}
+	}
 }
